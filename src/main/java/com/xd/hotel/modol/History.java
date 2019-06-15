@@ -3,10 +3,7 @@ package com.xd.hotel.modol;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
@@ -19,7 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 public class History {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer hid;
 
     private String roomNumber;

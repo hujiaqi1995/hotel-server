@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
@@ -21,7 +18,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Room {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer rid;
 
     private String roomNumber;
@@ -39,4 +36,22 @@ public class Room {
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;
+
+    public Room(String roomNumber, String roomType, Short status, Integer roomPrice, String note, LocalDateTime createTime, LocalDateTime updateTime) {
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
+        this.status = status;
+        this.roomPrice = roomPrice;
+        this.note = note;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+    }
+
+    public Room(String roomNumber, String roomType, Short status, Integer roomPrice, String note) {
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
+        this.status = status;
+        this.roomPrice = roomPrice;
+        this.note = note;
+    }
 }

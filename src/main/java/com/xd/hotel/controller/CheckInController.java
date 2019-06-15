@@ -90,7 +90,7 @@ public class CheckInController {
     @GetMapping("/getFreeRoom")
     public Common getFreeRoom() {
         List<String> roomNumberList = roomService.findAll().stream()
-                .filter(room -> room.getStatus().equals(1))
+                .filter(room -> room.getStatus().equals(0))
                 .map(Room::getRoomNumber)
                 .collect(Collectors.toList());
         return Common.of(Common.SUCCESS, "获取空余房间号成功", roomNumberList);

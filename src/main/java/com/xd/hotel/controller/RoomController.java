@@ -48,8 +48,8 @@ public class RoomController {
 
     @ApiOperation("删除房间")
     @DeleteMapping("/deleteRoom")
-    public Common deleteRoom(@RequestParam("rid") Integer rid) {
-        Room room = roomService.findById(rid);
+    public Common deleteRoom(@RequestParam("roomNumber") String roomNumber) {
+        Room room = roomService.getOne(roomNumber);
         if (room != null) {
             roomService.deleteRoom(room);
             return Common.of(Common.SUCCESS, "删除房间成功");

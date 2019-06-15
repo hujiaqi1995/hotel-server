@@ -26,7 +26,7 @@ public class RoleInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
-        if ((boolean) session.getAttribute("isLogin")) {
+        if (session.getAttribute("isLogin") != null && (boolean) session.getAttribute("isLogin")) {
             return true;
         }
         response.sendRedirect("/");

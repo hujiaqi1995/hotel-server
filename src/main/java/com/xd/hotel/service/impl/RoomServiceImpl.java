@@ -6,6 +6,7 @@ import com.xd.hotel.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -46,6 +47,9 @@ public class RoomServiceImpl implements RoomService {
     public boolean updateRoom(Room room) {
         Room r = roomDao.findByRoomNumber(room.getRoomNumber());
         if (r != null) {
+            room.setRid(r.getRid());
+            room.setCreateTime(r.getCreateTime());
+            room.setUpdateTime(LocalDateTime.now());
             roomDao.save(room);
             return true;
         }
