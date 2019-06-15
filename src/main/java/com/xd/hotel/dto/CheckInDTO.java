@@ -1,8 +1,8 @@
 package com.xd.hotel.dto;
 
-import com.xd.hotel.modol.CheckIn;
-import com.xd.hotel.modol.Customer;
-import com.xd.hotel.modol.Room;
+import com.xd.hotel.model.CheckIn;
+import com.xd.hotel.model.Customer;
+import com.xd.hotel.model.Room;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

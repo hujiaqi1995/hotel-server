@@ -1,6 +1,6 @@
 package com.xd.hotel.service;
 
-import com.xd.hotel.modol.Room;
+import com.xd.hotel.model.Room;
 
 import java.util.List;
 

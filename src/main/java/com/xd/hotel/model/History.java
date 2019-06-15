@@ -1,29 +1,33 @@
-package com.xd.hotel.modol;
+package com.xd.hotel.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
- * Created by jiaqi on 2019/6/13 9:35 PM
+ * Created by jiaqi on 2019/6/13 10:19 PM
  */
 
 @Entity
-@Table(name = "customer")
+@Table(name = "history")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
-
+public class History {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer hid;
+
     private String roomNumber;
+
+    private LocalDateTime startTime;
+
+    private LocalDateTime endTime;
 
     private String name;
 
@@ -31,13 +35,7 @@ public class Customer {
 
     private String identityNumber;
 
-    private LocalDateTime startTime;
-
-    private LocalDateTime endTime;
+    private Integer price;
 
     private String note;
-
-    private LocalDateTime createTime;
-
-    private LocalDateTime updateTime;
 }

@@ -1,7 +1,7 @@
 package com.xd.hotel.controller;
 
 import com.xd.hotel.dto.Common;
-import com.xd.hotel.modol.History;
+import com.xd.hotel.model.History;
 import com.xd.hotel.service.HistoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,7 +32,7 @@ public class HistoryController {
     }
 
     @ApiOperation("获取指定用户的入住历史记录")
-    @GetMapping("/history/{identityNumber}")
+    @GetMapping("/listHistory/{identityNumber}")
     public Common findHistory(@PathVariable("identityNumber") String identityNumber) {
         List<History> historyList = historyService.findByIdentityNumber(identityNumber);
         return Common.of(Common.SUCCESS, "获取指定用户历史记录成功", historyList);

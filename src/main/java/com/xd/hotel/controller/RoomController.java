@@ -1,7 +1,7 @@
 package com.xd.hotel.controller;
 
 import com.xd.hotel.dto.Common;
-import com.xd.hotel.modol.Room;
+import com.xd.hotel.model.Room;
 import com.xd.hotel.service.RoomService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

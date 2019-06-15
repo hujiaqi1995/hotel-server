@@ -1,8 +1,8 @@
 package com.xd.hotel.dto;
 
-import com.xd.hotel.modol.Customer;
-import com.xd.hotel.modol.History;
-import com.xd.hotel.modol.Room;
+import com.xd.hotel.model.Customer;
+import com.xd.hotel.model.History;
+import com.xd.hotel.model.Room;
 
 /**
  * Created by jiaqi on 2019/6/14 12:11 PM

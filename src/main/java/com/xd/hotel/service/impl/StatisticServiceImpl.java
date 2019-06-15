@@ -1,7 +1,7 @@
 package com.xd.hotel.service.impl;
 
 import com.xd.hotel.dao.CheckInDao;
-import com.xd.hotel.modol.CheckIn;
+import com.xd.hotel.model.CheckIn;
 import com.xd.hotel.service.StatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +18,11 @@ public class StatisticServiceImpl implements StatisticService {
     private CheckInDao checkInDao;
 
     @Override
-    public Long getIncome(LocalDateTime fromDate) {
+    public Integer getIncome(LocalDateTime fromDate) {
         return checkInDao.findByStartTimeAfter(fromDate).stream()
                 .map(CheckIn::getRoomPrice)
-                .count();
+                .reduce(Integer::sum)
+                .orElse(0);
     }
 
     @Override

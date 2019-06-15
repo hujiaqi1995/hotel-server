@@ -1,6 +1,6 @@
 package com.xd.hotel.service;
 
-import com.xd.hotel.modol.Customer;
+import com.xd.hotel.model.Customer;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.xd.hotel.service.impl;
 
 import com.xd.hotel.dao.HistoryDao;
-import com.xd.hotel.modol.History;
+import com.xd.hotel.model.History;
 import com.xd.hotel.service.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;

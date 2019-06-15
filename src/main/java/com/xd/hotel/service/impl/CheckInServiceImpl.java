@@ -1,9 +1,7 @@
 package com.xd.hotel.service.impl;
 
 import com.xd.hotel.dao.CheckInDao;
-import com.xd.hotel.modol.CheckIn;
-import com.xd.hotel.modol.Customer;
-import com.xd.hotel.modol.Room;
+import com.xd.hotel.model.CheckIn;
 import com.xd.hotel.service.CheckInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;

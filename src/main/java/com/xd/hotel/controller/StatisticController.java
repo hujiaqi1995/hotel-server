@@ -5,6 +5,8 @@ import com.xd.hotel.service.StatisticService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,9 +29,9 @@ public class StatisticController {
 
     @ApiOperation("收入统计")
     @GetMapping("/getIncome")
-    public Common getIncome(@RequestParam(value = "fromDate") LocalDateTime fromDate) {
-        Long income = statisticService.getIncome(fromDate);
-        return Common.of(Common.SUCCESS, "查询收入成功", income);
+    public ResponseEntity<Integer> getIncome(@RequestParam(value = "fromDate") LocalDateTime fromDate) {
+        Integer income = statisticService.getIncome(fromDate);
+        return new ResponseEntity<>(income, HttpStatus.OK);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.xd.hotel.modol;
+package com.xd.hotel.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,6 +1,6 @@
 package com.xd.hotel.dao;
 
-import com.xd.hotel.modol.History;
+import com.xd.hotel.model.History;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

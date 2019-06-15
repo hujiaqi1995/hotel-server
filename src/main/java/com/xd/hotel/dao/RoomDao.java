@@ -1,6 +1,6 @@
 package com.xd.hotel.dao;
 
-import com.xd.hotel.modol.Room;
+import com.xd.hotel.model.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

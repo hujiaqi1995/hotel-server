@@ -1,7 +1,7 @@
 package com.xd.hotel.service.impl;
 
 import com.xd.hotel.dao.CustomerDao;
-import com.xd.hotel.modol.Customer;
+import com.xd.hotel.model.Customer;
 import com.xd.hotel.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

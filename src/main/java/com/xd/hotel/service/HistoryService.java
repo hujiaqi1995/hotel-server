@@ -1,6 +1,6 @@
 package com.xd.hotel.service;
 
-import com.xd.hotel.modol.History;
+import com.xd.hotel.model.History;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;

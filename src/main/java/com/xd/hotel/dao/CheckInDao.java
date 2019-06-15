@@ -1,6 +1,6 @@
 package com.xd.hotel.dao;
 
-import com.xd.hotel.modol.CheckIn;
+import com.xd.hotel.model.CheckIn;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;

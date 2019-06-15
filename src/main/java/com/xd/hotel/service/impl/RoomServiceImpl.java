@@ -1,7 +1,7 @@
 package com.xd.hotel.service.impl;
 
 import com.xd.hotel.dao.RoomDao;
-import com.xd.hotel.modol.Room;
+import com.xd.hotel.model.Room;
 import com.xd.hotel.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

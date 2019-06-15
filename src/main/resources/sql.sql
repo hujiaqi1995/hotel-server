@@ -36,19 +36,17 @@ CREATE TABLE `history` (
 
 DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `room_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `price` int(11) NOT NULL,
   `create_time` datetime DEFAULT NULL,
   `end_time` datetime DEFAULT NULL,
   `identity_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remark` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `sex` smallint(6) DEFAULT NULL,
   `start_time` datetime DEFAULT NULL,
-  `status` smallint(6) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `note` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`room_number`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `checkin`;
@@ -56,7 +54,6 @@ CREATE TABLE `checkin` (
   `cid` int(11) NOT NULL AUTO_INCREMENT,
   `end_time` datetime DEFAULT NULL,
   `identity_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `infact_price` int(11) DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `note` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `room_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,

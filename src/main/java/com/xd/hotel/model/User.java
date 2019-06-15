@@ -1,9 +1,8 @@
-package com.xd.hotel.modol;
+package com.xd.hotel.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 

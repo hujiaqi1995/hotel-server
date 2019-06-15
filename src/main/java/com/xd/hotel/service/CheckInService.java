@@ -1,8 +1,6 @@
 package com.xd.hotel.service;
 
-import com.xd.hotel.modol.CheckIn;
-import com.xd.hotel.modol.Customer;
-import com.xd.hotel.modol.Room;
+import com.xd.hotel.model.CheckIn;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;

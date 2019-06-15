@@ -3,10 +3,10 @@ package com.xd.hotel.controller;
 import com.xd.hotel.dto.CheckInDTO;
 import com.xd.hotel.dto.Common;
 import com.xd.hotel.dto.HistoryDTO;
-import com.xd.hotel.modol.CheckIn;
-import com.xd.hotel.modol.Customer;
-import com.xd.hotel.modol.History;
-import com.xd.hotel.modol.Room;
+import com.xd.hotel.model.CheckIn;
+import com.xd.hotel.model.Customer;
+import com.xd.hotel.model.History;
+import com.xd.hotel.model.Room;
 import com.xd.hotel.service.CheckInService;
 import com.xd.hotel.service.CustomerService;
 import com.xd.hotel.service.HistoryService;
@@ -54,7 +54,7 @@ public class CheckInController {
     @Transactional
     public Common insertCustomer(@RequestBody Customer customer) {
         Room room = roomService.getOne(customer.getRoomNumber());
-        if (room != null) {
+        if (room != null && room.getStatus() == 0) {
             // 更新房间状态
             room.setStatus((short) 1);
             roomService.updateRoom(room);
@@ -80,7 +80,7 @@ public class CheckInController {
     }
 
     @ApiOperation("删除登记信息")
-    @GetMapping("/deleteCheckIn")
+    @DeleteMapping("/deleteCheckIn")
     public Common deleteCheckIn(@RequestParam("cid") Integer cid) {
         checkInService.delete(cid);
         return Common.of(Common.SUCCESS, "删除登记成功");
@@ -90,7 +90,7 @@ public class CheckInController {
     @GetMapping("/getFreeRoom")
     public Common getFreeRoom() {
         List<String> roomNumberList = roomService.findAll().stream()
-                .filter(room -> room.getStatus().equals(0))
+                .filter(room -> room.getStatus() == (short) 0)
                 .map(Room::getRoomNumber)
                 .collect(Collectors.toList());
         return Common.of(Common.SUCCESS, "获取空余房间号成功", roomNumberList);
@@ -106,8 +106,8 @@ public class CheckInController {
             CheckIn checkIn = checkInService.findByRoomNumber(curRoom.getRoomNumber());
             // 更新房间信息
             Room nextRoom = roomService.getOne(roomNumber);
-            curRoom.setStatus((short)0);
-            nextRoom.setStatus((short)1);
+            curRoom.setStatus((short) 0);
+            nextRoom.setStatus((short) 1);
             roomService.addRoom(curRoom);
             roomService.addRoom(nextRoom);
 
@@ -120,7 +120,6 @@ public class CheckInController {
             checkIn.setRoomNumber(roomNumber);
             checkIn.setRoomType(nextRoom.getRoomType());
             checkIn.setRoomPrice(nextRoom.getRoomPrice());
-            checkIn.setStartTime(LocalDateTime.now());
             checkInService.add(checkIn);
 
             // 更新住房历史
