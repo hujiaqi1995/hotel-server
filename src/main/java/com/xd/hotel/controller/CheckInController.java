@@ -13,6 +13,7 @@ import com.xd.hotel.service.HistoryService;
 import com.xd.hotel.service.RoomService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +29,8 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/hotelMgmt/checkInMgmt")
 @Api(tags = "CheckInController", description = "登记列表")
+@Slf4j
 public class CheckInController {
-
     @Autowired
     private CheckInService checkInService;
 
@@ -46,6 +47,7 @@ public class CheckInController {
     @GetMapping("/listCheckIn")
     public Common list() {
         List list = checkInService.findAll();
+        log.info("获取登记列表", list);
         return Common.of(Common.SUCCESS, "返回登记列表", list);
     }
 
@@ -53,6 +55,7 @@ public class CheckInController {
     @PostMapping("/insertCustomer")
     @Transactional
     public Common insertCustomer(@RequestBody Customer customer) {
+        log.info("添加顾客");
         Room room = roomService.getOne(customer.getRoomNumber());
         if (room != null && room.getStatus() == 0) {
             // 更新房间状态
@@ -82,6 +85,7 @@ public class CheckInController {
     @ApiOperation("删除登记信息")
     @DeleteMapping("/deleteCheckIn")
     public Common deleteCheckIn(@RequestParam("cid") Integer cid) {
+        log.info("删除登记信息");
         checkInService.delete(cid);
         return Common.of(Common.SUCCESS, "删除登记成功");
     }
@@ -89,6 +93,7 @@ public class CheckInController {
     @ApiOperation("查询空余房间")
     @GetMapping("/getFreeRoom")
     public Common getFreeRoom() {
+        log.info("查询空余房间");
         List<String> roomNumberList = roomService.findAll().stream()
                 .filter(room -> room.getStatus() == (short) 0)
                 .map(Room::getRoomNumber)
@@ -100,6 +105,7 @@ public class CheckInController {
     @GetMapping("/changeRoom")
     @Transactional
     public Common changeRoom(@RequestParam("rid") Integer rid, @RequestParam("roomNumber") String roomNumber) {
+        log.info("更换房间");
         // 更新顾客房间号
         Room curRoom = roomService.findById(rid);
         if (curRoom != null) {

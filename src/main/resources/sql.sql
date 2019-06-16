@@ -64,3 +64,11 @@ CREATE TABLE `checkin` (
   `status` smallint(6) DEFAULT NULL,
   PRIMARY KEY (`cid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `customer_eat_history`;
+CREATE TABLE `customer_eat_history` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `eat_time` datetime DEFAULT NULL,
+  `identity_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
