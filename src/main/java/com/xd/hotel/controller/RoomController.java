@@ -60,7 +60,7 @@ public class RoomController {
     }
 
     @ApiOperation("删除房间")
-    @DeleteMapping("/deleteRoom")
+    @GetMapping("/deleteRoom")
     public Common deleteRoom(@RequestParam("roomNumber") String roomNumber) {
         log.info("删除房间");
         Room room = roomService.getOne(roomNumber);
@@ -70,5 +70,12 @@ public class RoomController {
         } else {
             return Common.of(Common.SUCCESS, "删除房间失败");
         }
+    }
+
+    @ApiOperation("房间是否存在")
+    @GetMapping("/isRoomNoExists")
+    public Common isRoomNoExists(@RequestParam("roomNumber") String roomNumber) {
+        boolean res = roomService.exist(roomNumber);
+        return res ? Common.of(Common.SUCCESS, "房间存在", true) : Common.of(Common.FAILED, "房间不存在", false);
     }
 }

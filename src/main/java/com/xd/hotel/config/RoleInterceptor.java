@@ -27,9 +27,14 @@ public class RoleInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         return true;
 //        HttpSession session = request.getSession();
+//
+//        if (session.getAttribute("isLogin") == null) {
+//            System.out.println("isLogin = null");
+//        }
 //        if (session.getAttribute("isLogin") != null && (boolean) session.getAttribute("isLogin")) {
 //            return true;
 //        }
+//        System.out.println("没有登录");
 //        response.sendRedirect("/");
 //        return false;
     }

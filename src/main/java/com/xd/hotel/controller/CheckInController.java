@@ -51,7 +51,7 @@ public class CheckInController {
         return Common.of(Common.SUCCESS, "返回登记列表", list);
     }
 
-    @ApiOperation("添加顾客")
+    @ApiOperation("保存开放信息")
     @PostMapping("/insertCustomer")
     @Transactional
     public Common insertCustomer(@RequestBody Customer customer) {
@@ -82,7 +82,7 @@ public class CheckInController {
         return Common.of(Common.FAILED, "登记失败");
     }
 
-    @ApiOperation("删除登记信息")
+    @ApiOperation("退房")
     @DeleteMapping("/deleteCheckIn")
     public Common deleteCheckIn(@RequestParam("cid") Integer cid) {
         log.info("删除登记信息");

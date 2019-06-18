@@ -1,5 +1,6 @@
 package com.xd.hotel.controller;
 
+import com.xd.hotel.dto.Common;
 import com.xd.hotel.service.StatisticService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
 
 /**
  * Created by jiaqi on 2019/6/14 2:13 PM
@@ -36,6 +40,16 @@ public class StatisticController {
         return new ResponseEntity<>(income, HttpStatus.OK);
     }
 
+    @ApiOperation("当月收入")
+    @GetMapping("/getIncomeThisMonth")
+    public Common getIncome() {
+        LocalDate firstDayOfThisMonth = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
+        LocalTime localTime = LocalTime.of(0,0,0);
+        LocalDateTime fromDate = LocalDateTime.of(firstDayOfThisMonth, localTime);
+        Integer income = statisticService.getIncome(fromDate);
+        return Common.of(Common.SUCCESS, "获取当月总收入成功", income);
+    }
+
     @ApiOperation("统计今日就餐人数")
     @GetMapping("/getCustomersToday")
     public ResponseEntity<Integer> getCustomersToday() {
@@ -50,6 +64,4 @@ public class StatisticController {
         Integer count = statisticService.getCustomerEatCount(identityNumber);
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
-
-
 }

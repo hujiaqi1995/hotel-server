@@ -1,7 +1,9 @@
 package com.xd.hotel.controller;
 
 import com.xd.hotel.dto.Common;
+import com.xd.hotel.dto.LoginResult;
 import com.xd.hotel.service.LoginService;
+import com.xd.hotel.util.TokenUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -25,19 +27,19 @@ public class LoginController {
 
     @ApiOperation("登录")
     @PostMapping("/login")
-    public Common login(HttpServletRequest request,
-                        @RequestParam("username") String username,
-                        @RequestParam("password") String password) {
+    public LoginResult login(HttpServletRequest request,
+                             @RequestParam("username") String username,
+                             @RequestParam("password") String password) {
         boolean res = loginService.login(username, password);
+        System.out.println("登录结果"+ res);
         if (res) {
             log.info("登录成功");
             request.setAttribute("isLogin", "true");
             request.setAttribute("username", username);
-            request.setAttribute("password", password);
-            return Common.of(Common.SUCCESS, "登录成功");
+            return new LoginResult(true, TokenUtils.generate(), "0");
         } else {
             log.info("登录失败");
-            return Common.of(Common.FAILED, "登录失败");
+            return new LoginResult(false, TokenUtils.generate(), "1");
         }
     }
 
