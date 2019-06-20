@@ -12,9 +12,13 @@ public interface CustomerService {
 
     void add(Customer customer);
 
-    void delete(String name);
+    void update(Customer customer);
+
+    void delete(Customer customer);
 
     List<Customer> findByName(String name);
+
+    Customer findByRoomNumber(String roomNumber);
 
     Customer findByIdentityNumber(String identityNumber);
 }

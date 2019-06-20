@@ -56,7 +56,7 @@ public class CheckInController {
     @Transactional
     public Common insertCustomer(@RequestBody Customer customer) {
         log.info("添加顾客");
-        Room room = roomService.getOne(customer.getRoomNumber());
+        Room room = roomService.findByRoomNumber(customer.getRoomNumber());
         // 房间存在并且空闲
         if (room != null && room.getStatus() == 0) {
             // 更新房间状态
@@ -70,10 +70,6 @@ public class CheckInController {
             customer.setUpdateTime(LocalDateTime.now());
             customerService.add(customer);
 
-            // 添加登记记录
-            CheckIn checkIn = CheckInDTO.convert(room, customer);
-            checkInService.add(checkIn);
-
             // 添加入住记录
             History history = HistoryDTO.convert(room, customer);
             historyService.add(history);
@@ -84,26 +80,20 @@ public class CheckInController {
     }
 
     @ApiOperation("退房")
-    @DeleteMapping("/deleteCheckIn")
-    @Transactional
-    public Common deleteCheckIn(@RequestParam("cid") Integer cid) {
-        log.info("删除登记信息");
+    @GetMapping("/deleteCheckIn")
+    public Common deleteCheckIn(@RequestParam("roomNumber") String roomNumber) {
+        log.info("退房, roomNumber = "+ roomNumber);
+        Room room = roomService.findByRoomNumber(roomNumber);
+        Customer customer = customerService.findByRoomNumber(roomNumber);
+        if (room != null && customer != null) {
+            // 删除顾客信息
+            customerService.delete(customer);
 
-        // 删除登记信息
-        checkInService.delete(cid);
-
-        // 清除用户的房间号
-        CheckIn checkIn = checkInService.findById(cid);
-        Customer customer = customerService.findByIdentityNumber(checkIn.getIdentityNumber());
-        customer.setRoomNumber(null);
-        customer.setUpdateTime(LocalDateTime.now());
-        customerService.add(customer);
-
-        // 标记房间为空闲
-        Room room = roomService.getOne(checkIn.getRoomNumber());
-        room.setStatus((short) 0);
-        roomService.updateRoom(room);
-
+            // 更新房间信息
+            room.setStatus((short) 0);
+            room.setUpdateTime(LocalDateTime.now());
+            roomService.updateRoom(room);
+        }
         return Common.of(Common.SUCCESS, "删除登记成功");
     }
 
@@ -121,29 +111,27 @@ public class CheckInController {
     @ApiOperation("更换房间")
     @GetMapping("/changeRoom")
     @Transactional
-    public Common changeRoom(@RequestParam("rid") Integer rid, @RequestParam("roomNumber") String roomNumber) {
+    public Common changeRoom(@RequestParam("from") String from, @RequestParam("to") String to) {
         log.info("更换房间");
         // 更新顾客房间号
-        Room curRoom = roomService.findById(rid);
-        if (curRoom != null) {
-            CheckIn checkIn = checkInService.findByRoomNumber(curRoom.getRoomNumber());
+        Room curRoom = roomService.findByRoomNumber(from);
+        Room nextRoom = roomService.findByRoomNumber(to);
+        Customer customer = customerService.findByRoomNumber(from);
+        if (curRoom != null && nextRoom != null && nextRoom.getStatus() == (short) 0 && customer != null) {
+
             // 更新房间信息
-            Room nextRoom = roomService.getOne(roomNumber);
             curRoom.setStatus((short) 0);
+            curRoom.setUpdateTime(LocalDateTime.now());
             nextRoom.setStatus((short) 1);
+            nextRoom.setUpdateTime(LocalDateTime.now());
+
             roomService.addRoom(curRoom);
             roomService.addRoom(nextRoom);
 
             //更新顾客信息
-            Customer customer = customerService.findByIdentityNumber(checkIn.getIdentityNumber());
-            customer.setRoomNumber(roomNumber);
+            customer.setRoomNumber(to);
             customer.setUpdateTime(LocalDateTime.now());
-
-            // 更新登记信息
-            checkIn.setRoomNumber(roomNumber);
-            checkIn.setRoomType(nextRoom.getRoomType());
-            checkIn.setRoomPrice(nextRoom.getRoomPrice());
-            checkInService.add(checkIn);
+            customerService.update(customer);
 
             // 更新住房历史
             customer.setEndTime(LocalDateTime.now());

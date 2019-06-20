@@ -1,7 +1,9 @@
 package com.xd.hotel.controller;
 
 import com.xd.hotel.dto.Common;
+import com.xd.hotel.model.Customer;
 import com.xd.hotel.model.Room;
+import com.xd.hotel.service.CustomerService;
 import com.xd.hotel.service.RoomService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +26,9 @@ public class RoomController {
 
     @Autowired
     private RoomService roomService;
+
+    @Autowired
+    private CustomerService customerService;
 
     @ApiOperation("获取房间列表")
     @GetMapping("/listRoom")
@@ -63,12 +68,18 @@ public class RoomController {
     @GetMapping("/deleteRoom")
     public Common deleteRoom(@RequestParam("roomNumber") String roomNumber) {
         log.info("删除房间");
-        Room room = roomService.getOne(roomNumber);
+        Room room = roomService.findByRoomNumber(roomNumber);
+        Customer customer = customerService.findByRoomNumber(roomNumber);
         if (room != null) {
             roomService.deleteRoom(room);
+            if (customer != null) {
+                customer.setRoomNumber(null);
+                customer.setUpdateTime(LocalDateTime.now());
+                customerService.update(customer);
+            }
             return Common.of(Common.SUCCESS, "删除房间成功");
         } else {
-            return Common.of(Common.SUCCESS, "删除房间失败");
+            return Common.of(Common.FAILED, "删除房间失败");
         }
     }
 

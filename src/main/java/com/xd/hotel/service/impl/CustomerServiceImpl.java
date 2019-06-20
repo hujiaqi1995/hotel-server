@@ -28,13 +28,23 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void delete(String identityNumber) {
-        customerDao.deleteByIdentityNumber(identityNumber);
+    public void update(Customer customer) {
+        customerDao.save(customer);
+    }
+
+    @Override
+    public void delete(Customer customer) {
+        customerDao.delete(customer);
     }
 
     @Override
     public List<Customer> findByName(String name) {
         return customerDao.findByName(name);
+    }
+
+    @Override
+    public Customer findByRoomNumber(String roomNumber) {
+        return customerDao.findByRoomNumber(roomNumber);
     }
 
     @Override

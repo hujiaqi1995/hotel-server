@@ -13,7 +13,7 @@ public interface RoomService {
 
     Room findById(Integer rid);
 
-    Room getOne(String roomNumber);
+    Room findByRoomNumber(String roomNumber);
 
     boolean addRoom(Room room);
 

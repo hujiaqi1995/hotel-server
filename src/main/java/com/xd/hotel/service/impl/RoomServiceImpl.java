@@ -29,7 +29,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Room getOne(String roomNumber) {
+    public Room findByRoomNumber(String roomNumber) {
         return roomDao.findByRoomNumber(roomNumber);
     }
 
@@ -45,14 +45,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public boolean updateRoom(Room room) {
-        Room r = roomDao.findByRoomNumber(room.getRoomNumber());
-        if (r != null) {
-            room.setRid(r.getRid());
-            room.setCreateTime(r.getCreateTime());
-            room.setUpdateTime(LocalDateTime.now());
-            roomDao.save(room);
-            return true;
-        }
+        roomDao.save(room);
         return false;
     }
 
