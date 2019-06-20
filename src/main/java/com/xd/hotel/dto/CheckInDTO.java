@@ -31,6 +31,16 @@ public class CheckInDTO {
                 .build();
     }
 
+    public static CheckIn convert(Room room) {
+        return CheckIn.builder()
+                .roomNumber(room.getRoomNumber())
+                .status(room.getStatus())
+                .roomNumber(room.getRoomType())
+                .roomPrice(room.getRoomPrice())
+                .build();
+
+    }
+
     public static Customer toCustomer(CheckIn checkIn) {
         return Customer.builder()
                 .roomNumber(checkIn.getRoomNumber())

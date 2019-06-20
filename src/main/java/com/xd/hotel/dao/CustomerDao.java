@@ -15,4 +15,6 @@ public interface CustomerDao extends JpaRepository<Customer, String> {
 
     void deleteByIdentityNumber(String identityNumber);
 
+    Customer findByRoomNumber(String roomNumber);
+
 }

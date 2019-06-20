@@ -1,12 +1,17 @@
 package com.xd.hotel.service.impl;
 
 import com.xd.hotel.dao.CheckInDao;
+import com.xd.hotel.dao.CustomerDao;
+import com.xd.hotel.dao.RoomDao;
+import com.xd.hotel.dto.CheckInDTO;
 import com.xd.hotel.model.CheckIn;
+import com.xd.hotel.model.Room;
 import com.xd.hotel.service.CheckInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,10 +24,26 @@ public class CheckInServiceImpl implements CheckInService {
 
     @Autowired
     private CheckInDao checkInDao;
+    @Autowired
+    private RoomDao roomDao;
+
+    @Autowired
+    private CustomerDao customerDao;
 
     @Override
     public List<CheckIn> findAll() {
-        return checkInDao.findAll();
+        List<Room> rooms = roomDao.findAll();
+        List<CheckIn> checkIns = new ArrayList<>();
+        for (Room room:rooms) {
+            if (room.getStatus() == (short)1) {
+                // 已入住
+                checkIns.add(CheckInDTO.convert(room, customerDao.findByRoomNumber(room.getRoomNumber())));
+            } else {
+                // 空闲
+                checkIns.add(CheckInDTO.convert(room));
+            }
+        }
+        return checkIns;
     }
 
     @Override

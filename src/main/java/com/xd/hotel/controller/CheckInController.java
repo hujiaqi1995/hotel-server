@@ -46,9 +46,9 @@ public class CheckInController {
     @ApiOperation("获取所有登记信息")
     @GetMapping("/listCheckIn")
     public Common list() {
-        List list = checkInService.findAll();
-        log.info("获取登记列表", list);
-        return Common.of(Common.SUCCESS, "返回登记列表", list);
+        List data = checkInService.findAll();
+        log.info("获取登记列表", data);
+        return Common.of(Common.SUCCESS, "返回登记列表", data);
     }
 
     @ApiOperation("保存开放信息")
