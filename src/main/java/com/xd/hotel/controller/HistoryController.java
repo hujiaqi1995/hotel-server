@@ -30,16 +30,16 @@ public class HistoryController {
     @GetMapping("/listHistory")
     public Common listHistory() {
         log.info("获取所有人入住历史记录");
-        List<History> historyList = historyService.findAll();
-        return Common.of(Common.SUCCESS, "获取所有用户历史记录成功", historyList);
+        List<History> data = historyService.findAll();
+        return Common.of(Common.SUCCESS, "获取所有用户历史记录成功", data);
     }
 
     @ApiOperation("获取指定用户的入住历史记录")
     @GetMapping("/listHistory/{identityNumber}")
     public Common findHistory(@PathVariable("identityNumber") String identityNumber) {
         log.info("获取身份证为 " + identityNumber + " 的用户的历史记录");
-        List<History> historyList = historyService.findByIdentityNumber(identityNumber);
-        return Common.of(Common.SUCCESS, "获取指定用户历史记录成功", historyList);
+        List<History> data = historyService.findByIdentityNumber(identityNumber);
+        return Common.of(Common.SUCCESS, "获取指定用户历史记录成功", data);
     }
 
 }

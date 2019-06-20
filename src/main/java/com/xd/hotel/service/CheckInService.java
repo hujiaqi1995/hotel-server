@@ -15,6 +15,8 @@ public interface CheckInService {
 
     CheckIn findByRoomNumber(String roomNumber);
 
+    CheckIn findById(Integer cid);
+
     void add(CheckIn checkIn);
 
     void delete(Integer cid);

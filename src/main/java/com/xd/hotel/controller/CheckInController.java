@@ -51,12 +51,13 @@ public class CheckInController {
         return Common.of(Common.SUCCESS, "返回登记列表", data);
     }
 
-    @ApiOperation("保存开放信息")
+    @ApiOperation("保存开房信息")
     @PostMapping("/insertCustomer")
     @Transactional
     public Common insertCustomer(@RequestBody Customer customer) {
         log.info("添加顾客");
         Room room = roomService.getOne(customer.getRoomNumber());
+        // 房间存在并且空闲
         if (room != null && room.getStatus() == 0) {
             // 更新房间状态
             room.setStatus((short) 1);
@@ -84,9 +85,25 @@ public class CheckInController {
 
     @ApiOperation("退房")
     @DeleteMapping("/deleteCheckIn")
+    @Transactional
     public Common deleteCheckIn(@RequestParam("cid") Integer cid) {
         log.info("删除登记信息");
+
+        // 删除登记信息
         checkInService.delete(cid);
+
+        // 清除用户的房间号
+        CheckIn checkIn = checkInService.findById(cid);
+        Customer customer = customerService.findByIdentityNumber(checkIn.getIdentityNumber());
+        customer.setRoomNumber(null);
+        customer.setUpdateTime(LocalDateTime.now());
+        customerService.add(customer);
+
+        // 标记房间为空闲
+        Room room = roomService.getOne(checkIn.getRoomNumber());
+        room.setStatus((short) 0);
+        roomService.updateRoom(room);
+
         return Common.of(Common.SUCCESS, "删除登记成功");
     }
 

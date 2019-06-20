@@ -35,7 +35,7 @@ public class CheckInDTO {
         return CheckIn.builder()
                 .roomNumber(room.getRoomNumber())
                 .status(room.getStatus())
-                .roomNumber(room.getRoomType())
+                .roomType(room.getRoomType())
                 .roomPrice(room.getRoomPrice())
                 .build();
 

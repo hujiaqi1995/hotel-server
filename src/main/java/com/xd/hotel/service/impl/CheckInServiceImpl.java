@@ -32,18 +32,19 @@ public class CheckInServiceImpl implements CheckInService {
 
     @Override
     public List<CheckIn> findAll() {
-        List<Room> rooms = roomDao.findAll();
-        List<CheckIn> checkIns = new ArrayList<>();
-        for (Room room:rooms) {
-            if (room.getStatus() == (short)1) {
-                // 已入住
-                checkIns.add(CheckInDTO.convert(room, customerDao.findByRoomNumber(room.getRoomNumber())));
-            } else {
-                // 空闲
-                checkIns.add(CheckInDTO.convert(room));
-            }
-        }
-        return checkIns;
+//        List<Room> rooms = roomDao.findAll();
+//        List<CheckIn> checkIns = new ArrayList<>();
+//        for (Room room:rooms) {
+//            if (room.getStatus() == (short)1) {
+//                // 已入住
+//                checkIns.add(CheckInDTO.convert(room, customerDao.findByRoomNumber(room.getRoomNumber())));
+//            } else {
+//                // 空闲
+//                checkIns.add(CheckInDTO.convert(room));
+//            }
+//        }
+
+        return checkInDao.findAll();
     }
 
     @Override
@@ -54,6 +55,11 @@ public class CheckInServiceImpl implements CheckInService {
     @Override
     public CheckIn findByRoomNumber(String roomNumber) {
         return checkInDao.findByRoomNumber(roomNumber);
+    }
+
+    @Override
+    public CheckIn findById(Integer cid) {
+        return checkInDao.findById(cid).orElse(null);
     }
 
     @Override
