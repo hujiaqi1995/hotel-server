@@ -84,7 +84,7 @@ public class RoomController {
     }
 
     @ApiOperation("房间是否存在")
-    @GetMapping("/isRoomNoExists")
+    @GetMapping("/isRoomNumberExists")
     public Common isRoomNoExists(@RequestParam("roomNumber") String roomNumber) {
         boolean res = roomService.exist(roomNumber);
         return res ? Common.of(Common.SUCCESS, "房间存在", true) : Common.of(Common.FAILED, "房间不存在", false);

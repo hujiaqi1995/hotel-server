@@ -86,6 +86,11 @@ public class CheckInController {
         Room room = roomService.findByRoomNumber(roomNumber);
         Customer customer = customerService.findByRoomNumber(roomNumber);
         if (room != null && customer != null) {
+
+            // 添加历史信息
+            History history = HistoryDTO.convert(room, customer);
+            historyService.add(history);
+
             // 删除顾客信息
             customerService.delete(customer);
 
