@@ -43,7 +43,7 @@ public class RoomController {
     public Common insertRoom(@RequestBody Room room) {
         log.info("添加房间");
         room.setCreateTime(LocalDateTime.now());
-        if(roomService.addRoom(room)) {
+        if (roomService.addRoom(room)) {
             return Common.of(Common.SUCCESS, "添加房间成功");
         } else {
             return Common.of(Common.FAILED, "添加房间失败");
@@ -57,9 +57,9 @@ public class RoomController {
         log.info("更新房间信息");
         room.setUpdateTime(LocalDateTime.now());
         if (roomService.updateRoom(room)) {
-            return Common.of(Common.SUCCESS, "更新房间成功");
+            return Common.of(Common.SUCCESS, "更新房间成功", true);
         } else {
-            return Common.of(Common.FAILED, "更新房间失败");
+            return Common.of(Common.FAILED, "更新房间失败", false);
         }
 
     }

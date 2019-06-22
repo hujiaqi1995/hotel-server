@@ -45,7 +45,12 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public boolean updateRoom(Room room) {
-        roomDao.save(room);
+        Room old = roomDao.findByRoomNumber(room.getRoomNumber());
+        if (old != null) {
+            room.setRid(old.getRid());
+            roomDao.save(room);
+            return true;
+        }
         return false;
     }
 

@@ -30,7 +30,7 @@ public class Room implements Serializable {
     private String roomType;
 
     // 0空 1有人入住 2维修
-    private Short status;
+    private Short status = 0;
 
     private Integer roomPrice;
 

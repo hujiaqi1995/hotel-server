@@ -6,9 +6,10 @@ CREATE TABLE `room` (
   `room_number` varchar(255) DEFAULT NULL,
   `room_price` int(11) DEFAULT NULL,
   `room_type` varchar(255) DEFAULT NULL,
-  `status` smallint(6) DEFAULT NULL,
+  `status` smallint(6) DEFAULT 0,
   `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`rid`)
+  PRIMARY KEY (`rid`),
+  UNIQUE KEY uqe_room_number(`room_number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
