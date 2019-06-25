@@ -65,11 +65,13 @@ public class CheckInController {
 
             // 更新用户信息
             if (customerService.findByIdentityNumber(customer.getIdentityNumber()) == null) {
+                customer.setUpdateTime(LocalDateTime.now());
+                customer.setStatus(true);
+            } else {
                 customer.setCreateTime(LocalDateTime.now());
+                customer.setUpdateTime(LocalDateTime.now());
             }
-            customer.setUpdateTime(LocalDateTime.now());
             customerService.add(customer);
-
 
             return Common.of(Common.SUCCESS, "登记成功");
         }
@@ -90,6 +92,7 @@ public class CheckInController {
 
             // 标记顾客状态为false
             customer.setStatus(false);
+            customer.setUpdateTime(LocalDateTime.now());
             customerService.update(customer);
 
             // 更新房间信息

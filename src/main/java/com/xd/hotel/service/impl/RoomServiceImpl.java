@@ -1,6 +1,8 @@
 package com.xd.hotel.service.impl;
 
+import com.xd.hotel.dao.CustomerDao;
 import com.xd.hotel.dao.RoomDao;
+import com.xd.hotel.model.Customer;
 import com.xd.hotel.model.Room;
 import com.xd.hotel.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import java.util.List;
 public class RoomServiceImpl implements RoomService {
     @Autowired
     private RoomDao roomDao;
+    @Autowired
+    private CustomerDao customerDao;
 
     @Override
     public List<Room> findAll() {
@@ -50,6 +54,9 @@ public class RoomServiceImpl implements RoomService {
             old.setRoomNumber(room.getRoomNumber());
             if (room.getRoomPrice() != null) {
                 old.setRoomPrice(room.getRoomPrice());
+                Customer customer = customerDao.findByRoomNumber(room.getRoomNumber());
+                customer.setRoomNumber(room.getRoomNumber());
+                customerDao.save(customer);
             }
             old.setRoomType(room.getRoomType());
             old.setNote(room.getNote());
