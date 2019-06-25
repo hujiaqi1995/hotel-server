@@ -64,13 +64,17 @@ public class CheckInController {
             roomService.updateRoom(room);
 
             // 更新用户信息
-            if (customerService.findByIdentityNumber(customer.getIdentityNumber()) == null) {
-                customer.setUpdateTime(LocalDateTime.now());
-                customer.setStatus(true);
+            Customer oldCustomer = customerService.findByIdentityNumber(customer.getIdentityNumber());
+            if (oldCustomer != null) {
+                customer.setId(oldCustomer.getId());
+                customer.setCreateTime(oldCustomer.getCreateTime());
             } else {
                 customer.setCreateTime(LocalDateTime.now());
-                customer.setUpdateTime(LocalDateTime.now());
             }
+            customer.setStatus(true);
+            customer.setUpdateTime(LocalDateTime.now());
+            customer.setStartTime(customer.getStartTime().plusHours(8));
+            customer.setEndTime(customer.getEndTime().plusHours(8));
             customerService.add(customer);
 
             return Common.of(Common.SUCCESS, "登记成功");
@@ -92,6 +96,7 @@ public class CheckInController {
 
             // 标记顾客状态为false
             customer.setStatus(false);
+            customer.setRoomNumber(null);
             customer.setUpdateTime(LocalDateTime.now());
             customerService.update(customer);
 

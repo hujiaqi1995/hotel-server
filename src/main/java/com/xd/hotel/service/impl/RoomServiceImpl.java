@@ -54,7 +54,9 @@ public class RoomServiceImpl implements RoomService {
             old.setRoomNumber(room.getRoomNumber());
             if (room.getRoomPrice() != null) {
                 old.setRoomPrice(room.getRoomPrice());
-                Customer customer = customerDao.findByRoomNumber(room.getRoomNumber());
+            }
+            Customer customer = customerDao.findByRoomNumber(room.getRoomNumber());
+            if (customer != null) {
                 customer.setRoomNumber(room.getRoomNumber());
                 customerDao.save(customer);
             }

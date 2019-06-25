@@ -32,6 +32,7 @@ public class StatisticController {
     @Autowired
     private StatisticService statisticService;
 
+    // 暂不处理
     @ApiOperation("收入统计")
     @GetMapping("/getIncome")
     public Common getIncome(@RequestParam(value = "fromDate") LocalDateTime fromDate) {
@@ -40,6 +41,7 @@ public class StatisticController {
         return Common.of(Common.SUCCESS, "获取收入成功", data);
     }
 
+    //暂不处理
     @ApiOperation("当月收入")
     @GetMapping("/getIncomeThisMonth")
     public Common getIncome() {
