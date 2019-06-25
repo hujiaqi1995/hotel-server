@@ -43,6 +43,7 @@ public class RoomController {
     public Common insertRoom(@RequestBody Room room) {
         log.info("添加房间");
         room.setCreateTime(LocalDateTime.now());
+        room.setUpdateTime(LocalDateTime.now());
         if (roomService.addRoom(room)) {
             return Common.of(Common.SUCCESS, "添加房间成功");
         } else {
@@ -55,13 +56,11 @@ public class RoomController {
     @PostMapping("/updateRoom")
     public Common updateRoom(@RequestBody Room room) {
         log.info("更新房间信息");
-        room.setUpdateTime(LocalDateTime.now());
         if (roomService.updateRoom(room)) {
             return Common.of(Common.SUCCESS, "更新房间成功", true);
         } else {
             return Common.of(Common.FAILED, "更新房间失败", false);
         }
-
     }
 
     @ApiOperation("删除房间")
@@ -74,6 +73,7 @@ public class RoomController {
             roomService.deleteRoom(room);
             if (customer != null) {
                 customer.setRoomNumber(null);
+                customer.setStatus(false);
                 customer.setUpdateTime(LocalDateTime.now());
                 customerService.update(customer);
             }

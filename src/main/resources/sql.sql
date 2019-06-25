@@ -21,6 +21,8 @@ CREATE TABLE `user` (
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+insert into user(username, password) values ("admin", "123456"), ("user","123456")
+
 DROP TABLE IF EXISTS `history`;
 CREATE TABLE `history` (
   `hid` int(11) NOT NULL AUTO_INCREMENT,
@@ -47,6 +49,7 @@ CREATE TABLE `customer` (
   `start_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `note` varchar(255) DEFAULT NULL,
+  `status` bit(1) DEFAULT 1,
   PRIMARY KEY (`id`),
   UNIQUE KEY idx_room_number(`room_number`),
   UNIQUE KEY idx_identity_number(`identity_number`)

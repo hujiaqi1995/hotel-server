@@ -43,4 +43,7 @@ public class Customer implements Serializable {
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;
+
+    // 是否入住
+    private boolean status;
 }

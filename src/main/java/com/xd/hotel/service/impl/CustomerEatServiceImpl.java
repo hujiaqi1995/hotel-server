@@ -1,6 +1,8 @@
 package com.xd.hotel.service.impl;
 
+import com.xd.hotel.dao.CustomerDao;
 import com.xd.hotel.dao.CustomerEatDao;
+import com.xd.hotel.model.Customer;
 import com.xd.hotel.model.CustomerEat;
 import com.xd.hotel.service.CustomerEatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,8 @@ public class CustomerEatServiceImpl implements CustomerEatService {
 
     @Autowired
     private CustomerEatDao customerEatDao;
-
+    @Autowired
+    private CustomerDao customerDao;
 
     @Override
     public void eat(String identityNumber) {

@@ -10,9 +10,9 @@ import java.time.temporal.TemporalAdjusters;
  */
 public class Test {
     public static void main(String[] args) {
-        LocalDate firstDayOfThisMonth = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
-        LocalTime localTime = LocalTime.of(0,0,0);
-        LocalDateTime localDateTime = LocalDateTime.of(firstDayOfThisMonth, localTime);
-        System.out.println(localDateTime);
+        int a = 1, b = 3;
+        int c;
+        c = a + b;
+        System.out.println(c);
     }
 }

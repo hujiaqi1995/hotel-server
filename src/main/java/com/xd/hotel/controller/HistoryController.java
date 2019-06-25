@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,10 @@ public class HistoryController {
     public Common findHistory(@PathVariable("identityNumber") String identityNumber) {
         log.info("获取身份证为 " + identityNumber + " 的用户的历史记录");
         List<History> data = historyService.findByIdentityNumber(identityNumber);
-        return Common.of(Common.SUCCESS, "获取指定用户历史记录成功", data);
+        if (data != null) {
+            return Common.of(Common.SUCCESS, "获取指定用户历史记录成功", data);
+        } else {
+            return Common.of(Common.FAILED, "未查到历史记录", data);
+        }
     }
-
 }

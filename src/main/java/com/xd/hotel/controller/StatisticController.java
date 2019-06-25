@@ -34,10 +34,10 @@ public class StatisticController {
 
     @ApiOperation("收入统计")
     @GetMapping("/getIncome")
-    public ResponseEntity<Integer> getIncome(@RequestParam(value = "fromDate") LocalDateTime fromDate) {
+    public Common getIncome(@RequestParam(value = "fromDate") LocalDateTime fromDate) {
         log.info("收入统计");
-        Integer income = statisticService.getIncome(fromDate);
-        return new ResponseEntity<>(income, HttpStatus.OK);
+        Integer data = statisticService.getIncome(fromDate);
+        return Common.of(Common.SUCCESS, "获取收入成功", data);
     }
 
     @ApiOperation("当月收入")
@@ -52,16 +52,16 @@ public class StatisticController {
 
     @ApiOperation("统计今日就餐人数")
     @GetMapping("/getCustomersToday")
-    public ResponseEntity<Integer> getCustomersToday() {
+    public Common getCustomersToday() {
         log.info("今日就餐人数统计");
-        Integer count = statisticService.getCustomersToday();
-        return new ResponseEntity<>(count, HttpStatus.OK);
+        Integer data = statisticService.getCustomersToday();
+        return Common.of(Common.SUCCESS, "获取今日就餐人数成功", data);
     }
 
     @GetMapping("/getCustomerEatCount")
-    public ResponseEntity<Integer> getCustomerEatCount(@RequestParam("identityNumber") String identityNumber) {
+    public Common getCustomerEatCount(@RequestParam("identityNumber") String identityNumber) {
         log.info(String.format("身份证号为%s的用户的就餐次数统计", identityNumber));
-        Integer count = statisticService.getCustomerEatCount(identityNumber);
-        return new ResponseEntity<>(count, HttpStatus.OK);
+        Integer data = statisticService.getCustomerEatCount(identityNumber);
+        return Common.of(Common.SUCCESS, "获取就餐次数成功", data);
     }
 }

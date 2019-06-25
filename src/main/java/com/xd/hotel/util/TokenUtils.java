@@ -11,7 +11,7 @@ public class TokenUtils {
     public static String generate() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < TOKEN_LENGTH; i++) {
-            sb.append(ThreadLocalRandom.current().nextInt());
+            sb.append(ThreadLocalRandom.current().nextInt(10));
         }
         return sb.toString();
     }

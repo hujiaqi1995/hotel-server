@@ -70,9 +70,6 @@ public class CheckInController {
             customer.setUpdateTime(LocalDateTime.now());
             customerService.add(customer);
 
-            // 添加入住记录
-            History history = HistoryDTO.convert(room, customer);
-            historyService.add(history);
 
             return Common.of(Common.SUCCESS, "登记成功");
         }
@@ -91,15 +88,17 @@ public class CheckInController {
             History history = HistoryDTO.convert(room, customer);
             historyService.add(history);
 
-            // 删除顾客信息
-            customerService.delete(customer);
+            // 标记顾客状态为false
+            customer.setStatus(false);
+            customerService.update(customer);
 
             // 更新房间信息
             room.setStatus((short) 0);
             room.setUpdateTime(LocalDateTime.now());
             roomService.updateRoom(room);
+            return Common.of(Common.SUCCESS, "删除登记成功");
         }
-        return Common.of(Common.SUCCESS, "删除登记成功");
+        return Common.of(Common.FAILED, "退房失败");
     }
 
     @ApiOperation("查询空余房间")

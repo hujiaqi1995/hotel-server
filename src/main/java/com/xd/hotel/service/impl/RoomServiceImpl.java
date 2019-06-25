@@ -47,8 +47,14 @@ public class RoomServiceImpl implements RoomService {
     public boolean updateRoom(Room room) {
         Room old = roomDao.findByRoomNumber(room.getRoomNumber());
         if (old != null) {
-            room.setRid(old.getRid());
-            roomDao.save(room);
+            old.setRoomNumber(room.getRoomNumber());
+            if (room.getRoomPrice() != null) {
+                old.setRoomPrice(room.getRoomPrice());
+            }
+            old.setRoomType(room.getRoomType());
+            old.setNote(room.getNote());
+            old.setUpdateTime(LocalDateTime.now());
+            roomDao.save(old);
             return true;
         }
         return false;
